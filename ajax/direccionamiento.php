@@ -1,7 +1,7 @@
 <?php
 
 function direccionamiento( $codop, $operando){
-
+	
 	$tabop = fopen("tabop.txt", "rb");
 	$resultado = array();
 
@@ -36,9 +36,8 @@ function direccionamiento( $codop, $operando){
 				break;
 			}
 			$dir = tipo_direccionamiento( $operando );
-			if ( $codop == "ASR" ) {
-				var_dump($dir);
-			}
+			
+
 			if ( substr( $elementos[1], 0, 3) === "REL" ) {
 			 	$resultado[] = "Direccionamiento relativo de " . substr( $elementos[1], 3) . "bits";
 				$resultado[] = $elementos[1];
@@ -46,7 +45,8 @@ function direccionamiento( $codop, $operando){
 				$resultado[] = $elementos[2];
 				fclose( $tabsim );
 				break;
-			 } else if ( substr($dir[0], 0, 3) === substr($elementos[1], 0, 3) ) {
+			 } else if ( substr($dir[0], 0, 5) === substr($elementos[1], 0, 5) ) {
+			 	
 				$resultado[] = $dir[1];
 				$resultado[] = $elementos[1];
 				$resultado[] = $elementos[3];
@@ -69,7 +69,7 @@ function direccionamiento( $codop, $operando){
 
 
 function tipo_direccionamiento( $operando ){
-
+	
 	switch ( $operando[0] ) {
 		case '$':
 			$op_res = hexdec( $operando );
@@ -134,8 +134,14 @@ function tipo_direccionamiento( $operando ){
 		$second = explode(']', $sub_op[1]);
 		$sub_op_num = substr( $sub_op[0], 1);
 
-		if ( $sub_op[1] != 'X' 
-			&& $sub_op[1] != 'Y'
+		if ( $sub_op[1] != 'X+' 
+			&& $sub_op[1] != 'X-'
+			&& $sub_op[1] != '+X'
+			&& $sub_op[1] != '-X'
+			&& $sub_op[1] != 'Y+'
+			&& $sub_op[1] != 'Y-'
+			&& $sub_op[1] != '+Y'
+			&& $sub_op[1] != '-Y'
 			&& $sub_op[1] != 'SP'
 			&& $sub_op[1] != 'PC'
 			&& $second[0] != 'X'
@@ -160,7 +166,7 @@ function tipo_direccionamiento( $operando ){
 				$resultado[] = "Direccionamiento indexado de 16bits indirecto";
 			}
 		
-		}else if ( $sub_op[0] >= 1 && $sub_op[0] <= 8 && strpos( $sub_op[1], "SP") >= 0 && strlen( $sub_op ) == 3 ) {
+		}else if ( ( ($sub_op[0] >= 1 && $sub_op[0] <= 8) || ($sub_op[0] >= -8 && $sub_op[0] <= -1) ) && strpos( $sub_op[1], "SP") >= 0 && strlen( $sub_op[1] ) == 3 ) {
 			
 			if ( $sub_op[1][0] == '-' ) {
 
@@ -168,6 +174,7 @@ function tipo_direccionamiento( $operando ){
 				$resultado[] = "Direccionamiento indexado pre decremento";
 				
 			} else if ( $sub_op[1][0] == '+' ) {
+
 				$resultado[] = "IDX";
 				$resultado[] = "Direccionamiento indexado pre incremento";
 			} else if ( $sub_op[1][2] == '-' ) {
@@ -176,7 +183,7 @@ function tipo_direccionamiento( $operando ){
 			} else if ( $sub_op[1][2] == '+' ) {
 				$resultado[] = "IDX";
 				$resultado[] = "Direccionamiento indexado post incremento";
-			}
+			} 
 
 		} else if ( $sub_op[0] === 'A' || $sub_op[0] === 'B' || $sub_op[0] === 'D' ) {
 			$resultado[] = "IDX";
@@ -187,8 +194,10 @@ function tipo_direccionamiento( $operando ){
 			$resultado[] = "Direccionamiento indexado de 5bits";
 
 		} else if ( $sub_op[0] >= -256 && $sub_op[0] <= -17 ) {
+			
 			$resultado[] = "IDX1";
 			$resultado[] = "Direccionamiento indexado de 9bits";
+
 		} else if ( $sub_op[0] >= 256 && $sub_op[0] <= 65535 ) {
 			$resultado[] = "IDX2";
 			$resultado[] = "Direccionamiento indexado de 16bits";

@@ -1,6 +1,7 @@
 <?php
 	
 include('direccionamiento.php');
+include('codigo_maquina_por_direccionamiento.php');
 
 if ( $_POST['llamada'] = "compila") {
 	//echo "hola";
@@ -16,6 +17,7 @@ if ($_FILES["file"]["error"] > 0) {
 	echo "Tipo: " . $_FILES["file"]["type"] . "<br>";
 	echo "Tamaño: " . ($_FILES["file"]["size"] / 1024) . " kB<br>";
 	echo "almacenado en: " . $_FILES["file"]["tmp_name"] . "<br>";
+	echo  hexdec(97) ;
 	?>
 	<table class="table">	
 		<tr>
@@ -26,6 +28,7 @@ if ($_FILES["file"]["error"] > 0) {
 			<th>Operando</th>
 		</tr>
 	<?php
+
 	while ( ($linea = fgets($archivo)) !== false ) {
 
 		for( $i = 0 ; 4 > ( strlen($contador) ) ; $i++ ){
@@ -88,10 +91,7 @@ if ($_FILES["file"]["error"] > 0) {
 
 			echo "<td>$contador</td>";
 		}
-		if ( $fila[1] == "ASR" ) {
-				echo "hurraaaa!!!";
-				var_dump($resultado_dir);
-			}
+		
 		if ( substr($resultado_dir[1], 0, 3) == "IMM" || substr($resultado_dir[1], 0, 3) == "DIR" || substr($resultado_dir[1], 0, 3) == "EXT") {
 			
 			$maquina = dechex($operando);
@@ -109,8 +109,12 @@ if ($_FILES["file"]["error"] > 0) {
 			
 			echo "<td>" . $maquina . "</td>";
 		} else{
+		
 			$maquina = $resultado_dir[3];
-			echo "<td>" . $resultado_dir[3] . "</td>";
+
+			call_user_func($resultado_dir[1]);
+
+			echo "<td>" . $maquina . $resultado_dir[1] . "</td>";
 		}
 
 		if ( !empty($fila[0]) ) {
