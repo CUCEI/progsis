@@ -14,53 +14,25 @@ function direccionamiento( $codop, $operando){
 		$elementos = explode("|", $linea);
 
 		if ( $elementos[0] === $codop ) {
-			$tabsim = fopen("tabsim.asm", "rb");
-
-			while ( ( $etiqueta =fgets($tabsim) ) != false ) {
-
-				$elementos_tabsim = explode(" ", $etiqueta);
-
-				if ( $elementos_tabsim[0] == $operando ) {
-					$operando = $elementos_tabsim[1];
-					$resultado[] = "Direccionamiento relativo de " . substr( $elementos[1], 3) . "bits";
-					$resultado[] = $elementos[1];
-					$resultado[] = $elementos[3];
-					$resultado[] = $elementos[2];
-					$resultado[] = $operando;
-
-					fclose( $tabsim );
-				}
-			}
-
-			if ( count($resultado) != 0 ) {
-				break;
-			}
 			$dir = tipo_direccionamiento( $operando );
-			if ( $codop == "ASR" ) {
-				var_dump($dir);
-			}
+
 			if ( substr( $elementos[1], 0, 3) === "REL" ) {
 			 	$resultado[] = "Direccionamiento relativo de " . substr( $elementos[1], 3) . "bits";
 				$resultado[] = $elementos[1];
 				$resultado[] = $elementos[3];
 				$resultado[] = $elementos[2];
-				fclose( $tabsim );
 				break;
-			 } else if ( substr($dir[0], 0, 3) === substr($elementos[1], 0, 3) ) {
+			 } else if ( $dir[0] === $elementos[1] ) {
 				$resultado[] = $dir[1];
 				$resultado[] = $elementos[1];
 				$resultado[] = $elementos[3];
 				$resultado[] = $elementos[2];
-				fclose( $tabsim );
 				break;
 			} elseif ( $dir[0] == "ERROR" ) {
 				$resultado[] = $dir[0];
 				$resultado[] = $dir[1];
-				fclose( $tabsim );
 				break;
 			}
-			fclose( $tabsim );
-
 		}
 	}
 
