@@ -37,7 +37,6 @@ function direccionamiento( $codop, $operando){
 			}
 			$dir = tipo_direccionamiento( $operando );
 			if ( $codop == "ASR" ) {
-				var_dump($dir);
 			}
 			if ( substr( $elementos[1], 0, 3) === "REL" ) {
 			 	$resultado[] = "Direccionamiento relativo de " . substr( $elementos[1], 3) . "bits";

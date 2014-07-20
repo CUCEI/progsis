@@ -89,8 +89,6 @@ if ($_FILES["file"]["error"] > 0) {
 			echo "<td>$contador</td>";
 		}
 		if ( $fila[1] == "ASR" ) {
-				echo "hurraaaa!!!";
-				var_dump($resultado_dir);
 			}
 		if ( substr($resultado_dir[1], 0, 3) == "IMM" || substr($resultado_dir[1], 0, 3) == "DIR" || substr($resultado_dir[1], 0, 3) == "EXT") {
 			
