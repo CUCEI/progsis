@@ -132,7 +132,7 @@
 		} else {
 			$s = 1;
 		}
-
+		
 		$xb = "111" . $rr . "0" . $z . $s;
 		$xb = dechex( bindec( $xb ) );
 		$maquina = str_replace("xb", $xb, $maquina);
