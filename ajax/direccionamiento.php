@@ -36,7 +36,6 @@ function direccionamiento( $codop, $operando){
 				break;
 			}
 			$dir = tipo_direccionamiento( $operando );
-			
 
 			if ( substr( $elementos[1], 0, 3) === "REL" ) {
 			 	$resultado[] = "Direccionamiento relativo de " . substr( $elementos[1], 3) . "bits";
@@ -92,6 +91,7 @@ function tipo_direccionamiento( $operando ){
 		$resultado[] = "INH";
 		$resultado[] = "Direccionamiento inherente";
 	} else if ( $operando[0] === '#' ) {
+
 		$resultado[] = "IMM";
 		$resultado[] = "Direccionamiento inmediato";
 		switch ( $operando[1] ) {
@@ -112,7 +112,7 @@ function tipo_direccionamiento( $operando ){
 				break;
 		}
 
-		if ( $op_res < 255) {
+		if ( $op_res <= 255) {
 			$resultado[0] = $resultado[0]."8";
 		} else if ( $op_res > 255 && $op_res <= 65535 ) {
 			$resultado[0] = $resultado[0]."16";
@@ -193,7 +193,7 @@ function tipo_direccionamiento( $operando ){
 			$resultado[] = "IDX";
 			$resultado[] = "Direccionamiento indexado de 5bits";
 
-		} else if ( $sub_op[0] >= -256 && $sub_op[0] <= -17 ) {
+		} else if ( $sub_op[0] >= -256 && $sub_op[0] <= 255 ) {
 			
 			$resultado[] = "IDX1";
 			$resultado[] = "Direccionamiento indexado de 9bits";
@@ -204,7 +204,6 @@ function tipo_direccionamiento( $operando ){
 		}
 		
 	} else {
-		echo "string";
 		$resultado[] = "ERROR";
 		$resultado[] = "Operador incorrecto";
 	}
