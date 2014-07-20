@@ -17,7 +17,7 @@ if ($_FILES["file"]["error"] > 0) {
 	echo "Tipo: " . $_FILES["file"]["type"] . "<br>";
 	echo "Tamaño: " . ($_FILES["file"]["size"] / 1024) . " kB<br>";
 	echo "almacenado en: " . $_FILES["file"]["tmp_name"] . "<br>";
-	echo  hexdec(97) ;
+	echo dechex(bindec("11111111"));
 	?>
 	<table class="table">	
 		<tr>
@@ -45,7 +45,6 @@ if ($_FILES["file"]["error"] > 0) {
 		if ( !empty($resultado_dir[4]) ) {
 			$fila[2] = $resultado_dir[4];
 		}
-
 		switch ( $fila[2][0] ) {
 		case '$':
 			$operando = hexdec( $fila[2] );
@@ -114,7 +113,7 @@ if ($_FILES["file"]["error"] > 0) {
 
 			call_user_func($resultado_dir[1]);
 
-			echo "<td>" . $maquina . $resultado_dir[1] . "</td>";
+			echo "<td>" . $maquina . "</td>";
 		}
 
 		if ( !empty($fila[0]) ) {
