@@ -86,7 +86,6 @@
 			}
 
 			$xb = $rr . "1" . $p . $nnnn;
-			echo "$r ";
 
 		} else if(  in_array( $n, $acumulador ) ){
 			
@@ -113,7 +112,6 @@
 			}
 
 			$xb = $rr . "0" . $nnnnn;
-			echo "$n";
 		}
 
 		$xb = dechex( bindec( $xb ) );
@@ -150,11 +148,9 @@
 		$s = 0; 
 
 		$xb = "111" . $rr . "0" . $z . $s;
-		echo "$xb";
 
 		$xb = dechex( bindec( $xb ) );
 		$maquina = str_replace("xb", $xb, $maquina);
-		echo "blabla: " . dechex(bindec("1111010"));
 
 		$eeff = dechex(abs($n));
 		$eeff_format = substr($eeff, 0,2) . " " . substr($eeff, 2,4);

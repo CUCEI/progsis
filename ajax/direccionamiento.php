@@ -204,7 +204,6 @@ function tipo_direccionamiento( $operando ){
 		}
 		
 	} else {
-		echo "string";
 		$resultado[] = "ERROR";
 		$resultado[] = "Operador incorrecto";
 	}

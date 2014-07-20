@@ -17,7 +17,7 @@ if ($_FILES["file"]["error"] > 0) {
 	echo "Tipo: " . $_FILES["file"]["type"] . "<br>";
 	echo "Tamaño: " . ($_FILES["file"]["size"] / 1024) . " kB<br>";
 	echo "almacenado en: " . $_FILES["file"]["tmp_name"] . "<br>";
-	echo hexdec("6D");
+	
 	?>
 	<table class="table">	
 		<tr>
@@ -113,7 +113,7 @@ if ($_FILES["file"]["error"] > 0) {
 
 			call_user_func($resultado_dir[1]);
 
-			echo "<td>" . $maquina . $resultado_dir[1] . "</td>";
+			echo "<td>" . $maquina . "</td>";
 		}
 
 		if ( !empty($fila[0]) ) {
