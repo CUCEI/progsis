@@ -155,5 +155,70 @@
 		$eeff = dechex(abs($n));
 		$eeff_format = substr($eeff, 0,2) . " " . substr($eeff, 2,4);
 		$maquina = str_replace("ee ff", $eeff_format, $maquina);
-}
+	}
+
+	function REL8(){
+		global $contador, $fila, $maquina;
+
+		switch ( $fila[2][0] ) {
+			case '$':
+				$op_res = hexdec( $fila[2] );
+				break;
+			
+			case '@':
+				$op_res = octdec( $fila[2] );
+				break;
+			
+			case '%':
+				$op_res = bindec( $fila[2] );
+				break;
+			
+			default:
+				$op_res = $fila[2];
+				break;
+		}
+
+
+
+		$sig_contador = hexdec($contador) + 2;
+
+		$rr = $op_res - $sig_contador;
+
+		echo dechex($rr);
+		echo "$maquina";
+		$maquina = str_replace("rr", dechex($rr), $maquina);
+
+	}
+	function REL16(){
+			global $contador, $fila, $maquina;
+
+		switch ( $fila[2][0] ) {
+			case '$':
+				$op_res = hexdec( $fila[2] );
+				break;
+			
+			case '@':
+				$op_res = octdec( $fila[2] );
+				break;
+			
+			case '%':
+				$op_res = bindec( $fila[2] );
+				break;
+			
+			default:
+				$op_res = $fila[2];
+				break;
+		}
+
+
+
+		$sig_contador = hexdec($contador) + 4;
+
+		$qqrr = $op_res - $sig_contador;
+		$qqrr = dechex($qqrr);
+		$qqrr = str_pad( $qqrr, 4, "0", STR_PAD_LEFT);
+		$qqrr = substr($qqrr, 0,2) . " " . substr($qqrr, 2,4);
+		echo "$maquina";
+		$maquina = str_replace("qq rr", $qqrr, $maquina);
+	}
 ?>
