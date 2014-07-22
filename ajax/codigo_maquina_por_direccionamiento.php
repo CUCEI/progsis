@@ -132,10 +132,15 @@
 		}
 		
 		$xb = "111" . $rr . "0" . $z . $s;
+		echo dechex(147) . " /";
 		$xb = dechex( bindec( $xb ) );
 		$maquina = str_replace("xb", $xb, $maquina);
 
 		$ff = dechex(abs($n));
+		if ($s == 1) {
+			$ff = substr(decbin($n), strlen(decbin($n)) - 8, strlen(decbin($n)));
+			$ff = dechex(bindec($ff));
+		}
 		$maquina = str_replace("ff", $ff, $maquina);
 	}
 

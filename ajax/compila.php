@@ -229,7 +229,7 @@ if ($_FILES["file"]["error"] > 0) {
     		$dir = hexdec($dir) + count( explode(" ", $data_left) );
     		$dir = dechex($dir);
     		$dir = strtoupper($dir);
-    		//die(var_dump($data_left));
+    		die(var_dump($dir));
 
     		$data_left = "";
     		$is_more_than_19 = 0;
@@ -294,6 +294,7 @@ if ($_FILES["file"]["error"] > 0) {
 
     		$s1[$i] = "S1 $lng $dir $data $checksum";	
     		echo "<br> $s1[$i] <br>";
+    		fwrite($objeto, $s1[$i] . "\n");
     	}
     	//
 
